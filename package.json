@@ -1,7 +1,6 @@
 {
   "name": "wobblemakers-client",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -10,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-select": "^3.10.7"
