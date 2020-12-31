@@ -1,6 +1,7 @@
 {
-  "name": "wobblemakers-client",
+  "name": "wm-client",
   "version": "1.0.0",
+  "description": "Vue.js website for the label",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
