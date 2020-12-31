@@ -21,7 +21,7 @@ export default {
   },
   mounted() {
     axios
-      .get(`http://${process.env.VUE_APP_BACKEND_URL}/artists`)
+      .get(`${this.$root.apiUrl}/artists`)
       .then(res => {
         this.artists = res.data;
       })

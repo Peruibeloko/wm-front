@@ -53,7 +53,7 @@ export default {
     document.head.appendChild(fontAwesome);
 
     axios
-      .get(`http://${process.env.VUE_APP_BACKEND_URL}/artists/${this.$route.params.name}`)
+      .get(`${this.$root.apiUrl}/artists/${this.$route.params.name}`)
       .then(res => {
         this.name = res.data.name;
         this.genres = res.data.genres;
@@ -72,7 +72,7 @@ export default {
       return this.name.toLowerCase().replace(/[^a-z]/g, '');
     },
     artistPicStyle() {
-      return `background-image: url(http://${process.env.VUE_APP_BACKEND_URL}/img/${this.imgName}.png), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 95%, rgba(0,0,0,1) 100%);`;
+      return `background-image: url(${this.$root.apiUrl}/img/${this.imgName}.png), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 95%, rgba(0,0,0,1) 100%);`;
     }
   }
 };

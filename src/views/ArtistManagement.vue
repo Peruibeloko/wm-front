@@ -131,7 +131,7 @@ export default {
       const confDeletion = confirm(`Deseja mesmo eliminar ${this.name}?`);
       if (confDeletion) {
         axios
-          .delete(`http://${process.env.VUE_APP_BACKEND_URL}/artists/${this.name}`)
+          .delete(`${this.$root.apiUrl}/artists/${this.name}`)
           .then(res => {
             console.debug(res);
             this.resetForm();
@@ -146,7 +146,7 @@ export default {
     getArtists() {
       const oldThis = this;
       axios
-        .get(`http://${process.env.VUE_APP_BACKEND_URL}/artistNames`)
+        .get(`${this.$root.apiUrl}/artistNames`)
         .then(res => {
           console.debug(res);
           oldThis.artists = res.data;
@@ -160,7 +160,7 @@ export default {
       const confChanges = confirm('Deseja descartar suas alterações?');
       if (!this.loadedArtist || (this.loadedArtist && confChanges)) {
         axios
-          .get(`http://${process.env.VUE_APP_BACKEND_URL}/artists/${artist}`)
+          .get(`http://${this.$root.apiUrl}/artists/${artist}`)
           .then(res => {
             console.debug(res);
             const resData = res.data;
@@ -200,7 +200,7 @@ export default {
 
       if (this.loadedArtist) {
         axios
-          .put(`http://${process.env.VUE_APP_BACKEND_URL}/artists/${this.name}`, payload)
+          .put(`${this.$root.apiUrl}/artists/${this.name}`, payload)
           .then(res => {
             console.debug(res);
             this.resetForm();
@@ -212,7 +212,7 @@ export default {
           });
       } else {
         axios
-          .post(`http://${process.env.VUE_APP_BACKEND_URL}/artists`, payload)
+          .post(`${this.$root.apiUrl}/artists`, payload)
           .then(res => {
             console.debug(res);
             this.resetForm();

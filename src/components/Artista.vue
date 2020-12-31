@@ -16,7 +16,7 @@ export default {
       return this.artist.name.toLowerCase().replace(/[^a-z]/g, '');
     },
     sectionStyle() {
-      return `background-image: url(http://${process.env.VUE_APP_BACKEND_URL}/img/${this.imgName}.png);`;
+      return `background-image: url(${this.$root.apiUrl}/img/${this.imgName}.png);`;
     }
   }
 };
