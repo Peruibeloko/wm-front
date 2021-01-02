@@ -7,12 +7,12 @@
     </aside>
     <section class="form-section" :style="`${loadedArtist ? bgArtist : ''}`">
       <form @submit="submitForm">
-        <div class="row">
-          <div class="form-group col">
+        <div class="form-row">
+          <div class="col">
             <label for="name">Nome Artístico</label>
             <input id="name" type="text" class="form-control" v-model="name" required />
           </div>
-          <div class="form-group col">
+          <div class="col">
             <label for="genres">Gêneros</label>
             <v-select
               class="genres"
@@ -36,7 +36,7 @@
             required
           ></textarea>
         </div>
-        <div class="row">
+        <div class="form-row">
           <div class="form-group col">
             <label for="spotify">Spotify</label>
             <input id="spotify" v-model="networks.spotify" type="url" class="form-control" />
@@ -50,7 +50,7 @@
             <input id="facebook" v-model="networks.facebook" type="url" class="form-control" />
           </div>
         </div>
-        <div class="row">
+        <div class="form-row">
           <div class="form-group col">
             <label for="twitter">Twitter</label>
             <input id="twitter" v-model="networks.twitter" type="url" class="form-control" />
@@ -64,7 +64,7 @@
             <input id="youtube" v-model="networks.youtube" type="url" class="form-control" />
           </div>
         </div>
-        <div class="row">
+        <div class="form-row">
           <div class="col-4">
             <div class="input-group">
               <div class="custom-file">
@@ -78,19 +78,21 @@
               </div>
             </div>
           </div>
-          <div class="col-4">
-            <div class="row">
-              <div class="form-group col-3">
-                <button name="submit" type="submit" class="btn btn-azul">
-                  {{ loadedArtist ? 'Atualizar' : 'Cadastrar' }}
-                </button>
-              </div>
-              <div class="form-group col-3" v-if="loadedArtist">
-                <button name="submit" type="submit" class="btn btn-vermelho" @click="confirmRemove">
-                  Remover
-                </button>
-              </div>
-            </div>
+          <div class="col-2">
+            <button name="submit" type="submit" class="btn btn-azul">
+              {{ loadedArtist ? 'Atualizar' : 'Cadastrar' }}
+            </button>
+          </div>
+          <div class="col-2">
+            <button
+              v-if="loadedArtist"
+              name="submit"
+              type="submit"
+              class="btn btn-vermelho"
+              @click="confirmRemove"
+            >
+              Remover
+            </button>
           </div>
         </div>
       </form>
@@ -114,7 +116,7 @@ export default {
       name: '',
       genres: [],
       description: '',
-      networks: [],
+      networks: {},
       artistPic: ''
     };
   },
@@ -192,7 +194,7 @@ export default {
         name: this.name.trim(),
         genres: this.genres,
         description: this.description.trim(),
-        networks: this.networks.map(obj => obj.link.trim()),
+        networks: Object.values(this.networks).map(e => e.trim()),
         artistPic: this.artistPic
       };
 
@@ -243,6 +245,7 @@ export default {
     }
   },
   mounted() {
+    // load 3rd party stuff
     const vueSelectStyle = document.createElement('link');
     vueSelectStyle.setAttribute('rel', 'stylesheet');
     vueSelectStyle.setAttribute('href', 'https://unpkg.com/vue-select@latest/dist/vue-select.css');
@@ -260,12 +263,16 @@ export default {
     );
     bootstrap.setAttribute('crossorigin', 'anonymous');
     document.head.appendChild(bootstrap);
+    // load 3rd party stuff
 
     this.getArtists();
   },
   computed: {
+    imgName() {
+      return this.name.toLowerCase().replace(/[^a-z]/g, '');
+    },
     bgArtist() {
-      return `background-image: url(${this.artistPic})`;
+      return `background-image: url(${this.$root.apiUrl}/img/${this.imgName}.png);`;
     }
   }
 };
@@ -361,6 +368,7 @@ input.custom-file-input {
   color: white;
   font-family: var(--titulo);
   font-size: 1.5rem;
+  width: 100%;
 }
 
 .btn-azul:hover {
@@ -373,6 +381,7 @@ input.custom-file-input {
   color: white;
   font-family: var(--titulo);
   font-size: 1.5rem;
+  width: 100%;
 }
 
 .btn-vermelho:hover {
