@@ -160,7 +160,7 @@ export default {
       const confChanges = confirm('Deseja descartar suas alterações?');
       if (!this.loadedArtist || (this.loadedArtist && confChanges)) {
         axios
-          .get(`http://${this.$root.apiUrl}/artists/${artist}`)
+          .get(`${this.$root.apiUrl}/artists/${artist}`)
           .then(res => {
             console.debug(res);
             const resData = res.data;
